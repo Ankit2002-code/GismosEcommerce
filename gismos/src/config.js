@@ -8,7 +8,7 @@ export default {
     sessionEmailKey: "email-ndm983mh2iur30",
     sessionNameKey: "name-ncjkhm8728r29uf",
 
-    prefix: "/gismos",
+    prefix: "",
     homePage: `${frontEndPrefix}/`,
     loginPage: `${frontEndPrefix}/login`,
     profilePage: `${frontEndPrefix}/profile`,
