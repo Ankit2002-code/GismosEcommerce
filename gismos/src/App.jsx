@@ -332,15 +332,18 @@ function App() {
     setProductsList(list);
   }
   useEffect(() => {
-    if (productsList.length > 0) {
+    // Only fetch if productsList is empty (not if it contains "ERROR")
+    if (productsList.length > 0 && productsList[0] !== "ERROR") {
       return;
     }
+    console.log("Fetching products from:", config.getBackendUrl("/get-products"));
     const loadingToast = toast.loading("Fetching products... Please wait", {
       position: "top-center",
     });
     axios
       .get(config.getBackendUrl("/get-products"))
       .then((res) => {
+        console.log("Products response:", res.data);
         if (res.data.valid) {
           changeProductsList(res.data.products);
           toast.update(loadingToast, {
@@ -351,9 +354,23 @@ function App() {
             closeButton: true,
             pauseOnHover: false,
           });
+        } else {
+          // Handle invalid response
+          console.error("Invalid response from server:", res.data);
+          changeProductsList(["ERROR"]);
+          toast.update(loadingToast, {
+            type: "error",
+            isLoading: false,
+            autoClose: 10000,
+            closeButton: true,
+            pauseOnHover: false,
+            render: "Products couldn't be loaded",
+          });
         }
       })
       .catch((err) => {
+        console.error("Product fetch error:", err);
+        console.error("Error details:", err.response?.data || err.message);
         changeProductsList(["ERROR"]);
         toast.update(loadingToast, {
           type: "error",
@@ -364,7 +381,7 @@ function App() {
           render: "Products couldn't be loaded",
         });
       });
-  }, []);
+  }, [productsList.length]); // Add dependency to allow retries
 
   function changeUserDetails(user) {
     setUserDetails(user);

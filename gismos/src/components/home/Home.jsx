@@ -27,7 +27,9 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
     let productBrands = [];
     let lowerPriceLimit = 0;
     let upperPriceLimit = 200;
-    if (productsListCopy[0] != "ERROR") {
+    
+    // Check if productsList is valid and not in error state
+    if (productsListCopy && productsListCopy.length > 0 && productsListCopy[0] !== "ERROR") {
         for (const product of productsListCopy) {
             let category = product.category;
             let brand = product.title ? product.title.split(" ")[0] : " ";
@@ -57,7 +59,7 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
     else shuffleArray(productsListCopy);
     
     let numberOfFilteredProducts = 0;
-    let sortedAndFilteredProducts = productsListCopy[0] != "ERROR" ? productsListCopy.map((product) => {
+    let sortedAndFilteredProducts = (productsListCopy && productsListCopy.length > 0 && productsListCopy[0] !== "ERROR") ? productsListCopy.map((product) => {
         if (categoryFilters.length > 0 && !categoryFilters.includes(product.category)) {
             return;
         }
@@ -277,7 +279,7 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                 </div>
                 
                 {
-                    productsListCopy[0] == "ERROR" ? 
+                    (productsListCopy && productsListCopy.length > 0 && productsListCopy[0] === "ERROR") ? 
                     <div className="empty-state">
                         <h3>Oops! Something went wrong</h3>
                         <p>We couldn't load the products. Please try refreshing the page.</p>

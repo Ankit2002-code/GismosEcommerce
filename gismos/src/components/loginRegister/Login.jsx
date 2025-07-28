@@ -18,8 +18,12 @@ export const Login = (props) => {
             return;
         }
         
+        console.log("Attempting login for:", email);
+        console.log("Login URL:", config.getBackendUrl("/login-gismos"));
+        
         axios.post(config.getBackendUrl("/login-gismos"), {email: email, password: pass})
         .then((res) => {
+            console.log("Login response:", res.data);
             toast.success(res.data.message);
             if (res.data.valid) {
                 localStorage.setItem(config.localTokenKey, res.data.token);
@@ -27,6 +31,8 @@ export const Login = (props) => {
             }
         })
         .catch((err) => {
+            console.error("Login error:", err);
+            console.error("Login error details:", err.response?.data || err.message);
             toast.error(err.response ? err.response.data.message : "Some error occurred");
         })
         .finally(() => {
