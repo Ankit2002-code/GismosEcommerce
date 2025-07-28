@@ -337,7 +337,7 @@ function App() {
       return;
     }
     console.log("Environment check:");
-    console.log("REACT_APP_BACKEND_URL:", import.meta.env.REACT_APP_BACKEND_URL);
+    console.log("VITE_BACKEND_URL:", import.meta.env.VITE_BACKEND_URL);
     console.log("Fetching products from:", config.getBackendUrl("/get-products"));
     const loadingToast = toast.loading("Fetching products... Please wait", {
       position: "top-center",
