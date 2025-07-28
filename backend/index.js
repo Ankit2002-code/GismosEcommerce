@@ -24,8 +24,25 @@ const DB_URI_GISMOS = process.env.DB_URI_GISMOS;
 
 
 
-app.use(cors({
-	origin: process.env.FRONTEND_URL || "http://localhost:5173",
+
+// List all allowed frontend URLs (add all your Vercel deploy URLs here)
+const allowedOrigins = [
+  "https://gismos-ecommerce-lm8u.vercel.app", // main production
+  "https://gismos-ecommerce-lm8u-git-main-ankits-projects-fba292c2.vercel.app", // preview (optional)
+  "https://gismos-ecommerce-lm8u-p9imf1l5u-ankits-projects-fba292c2.vercel.app", // preview (optional)
+  "http://localhost:5173" // local dev
+];
+  
+  app.use(cors({
+	origin: function(origin, callback){
+	  // allow requests with no origin (like mobile apps, curl, etc.)
+	  if(!origin) return callback(null, true);
+	  if(allowedOrigins.indexOf(origin) === -1){
+		var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+		return callback(new Error(msg), false);
+	  }
+	  return callback(null, true);
+	},
 	credentials: true
   }));
   app.use(json());
