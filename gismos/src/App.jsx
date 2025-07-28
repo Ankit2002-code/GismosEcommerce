@@ -336,6 +336,8 @@ function App() {
     if (productsList.length > 0 && productsList[0] !== "ERROR") {
       return;
     }
+    console.log("Environment check:");
+    console.log("VITE_BACKEND_URL:", import.meta.env.VITE_BACKEND_URL);
     console.log("Fetching products from:", config.getBackendUrl("/get-products"));
     const loadingToast = toast.loading("Fetching products... Please wait", {
       position: "top-center",

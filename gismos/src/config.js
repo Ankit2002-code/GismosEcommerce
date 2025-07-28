@@ -1,7 +1,10 @@
 const frontEndPrefix = ""
 
+// Use environment variable for backend URL, fallback to localhost for development
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+
 export default {
-    getBackendUrl: (suffix) => {return "http://localhost:3000" + suffix},
+    getBackendUrl: (suffix) => {return backendUrl + suffix},
     localTokenKey: "token-mgr28ocn3gcr87",
 
     sessionIdKey: "id-biufniwehmf83298m",
