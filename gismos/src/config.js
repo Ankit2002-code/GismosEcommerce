@@ -1,7 +1,7 @@
 const frontEndPrefix = ""
 
 // Use environment variable for backend URL, fallback to localhost for development
-const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "http://localhost:3000";
 
 export default {
     getBackendUrl: (suffix) => {return backendUrl + suffix},
