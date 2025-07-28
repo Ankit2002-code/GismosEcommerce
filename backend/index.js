@@ -24,8 +24,11 @@ const DB_URI_GISMOS = process.env.DB_URI_GISMOS;
 
 
 
-app.use(cors());
-app.use(json());
+app.use(cors({
+	origin: process.env.FRONTEND_URL || "http://localhost:5173",
+	credentials: true
+  }));
+  app.use(json());
 app.use(helmet());
 app.use(compression());
 const limiter = rateLimit({
